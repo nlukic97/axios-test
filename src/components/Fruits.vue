@@ -108,15 +108,17 @@ export default {
         console.log(this.displayedFruits)
       }
       // -------------------------------------------------------------------
-      // var nameCheckArr = [];
-      // this.displayedFruits.forEach(fruit=>{
-      //   for(var e = 0; e < this.nameInput.length; e++){
-      //     if(fruit.name.indexOf(this.nameInput[e] == [e])){
-      //       console.log('Fruit ' + fruit.name + ' has letter ' + this.nameInput[e] + ' in the ' + e + ' index.')
-      //       }
-      //       console.log(this.nameInput[e])
-      //     }
-      // })
+      if(this.nameInput!=''){
+        var nameCheckArr = [];
+        this.displayedFruits.forEach(fruit=>{
+          console.log(fruit.name)
+          var resultIndex = fruit.name.search(this.nameInput)
+          if(resultIndex == 0){
+            nameCheckArr.push(fruit)
+          }
+        })
+        console.log(nameCheckArr)
+      }
       // -------------------------------------------------------------------
     }
   },
