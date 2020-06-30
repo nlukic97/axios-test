@@ -5,12 +5,12 @@
     <div id="options">
       <div class="option">
         <label for="name">Name</label>
-        <input type="text" id="name" v-model="nameInput">
+        <input type="text" id="name" v-model="nameInput" @keyup="filterResults">
       </div>
 
       <div class="option">
         <label for="color">Color</label>
-        <select name="color" id="color" v-model="colorInput">
+        <select name="color" id="color" v-model="colorInput" v-on:change="filterResults">
           <option value=""></option>
           <option value="yellow">Yellow</option>
           <option value="red">Red</option>
@@ -23,14 +23,13 @@
 
       <div class="option">
         <label for="seeds">seeds</label>
-        <select name="seeds" id="seeds" v-model="seedsInput">
+        <select name="seeds" id="seeds" v-model="seedsInput" v-on:change="filterResults">
           <option value=""></option>
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
       </div>
     </div>
-    <button v-on:click="filterResults">Search</button> 
 
     <h3>Results:</h3>
     <ul>
@@ -95,7 +94,7 @@ export default {
           }
         }
         this.displayedFruits = seedCheckArr;
-        console.log(this.displayedFruits)
+        // console.log(this.displayedFruits)
 
         //seeds: true
       } else if(this.seedsInput == 'true'){
@@ -105,21 +104,20 @@ export default {
           }
         }
         this.displayedFruits = seedCheckArr;
-        console.log(this.displayedFruits)
+        // console.log(this.displayedFruits)
       }
-      // -------------------------------------------------------------------
-      if(this.nameInput!=''){
+      //name search
+      if(this.nameInput!='' && this.nameInput != null){
         var nameCheckArr = [];
         this.displayedFruits.forEach(fruit=>{
-          console.log(fruit.name)
+          // console.log(fruit.name)
           var resultIndex = fruit.name.search(this.nameInput)
           if(resultIndex == 0){
             nameCheckArr.push(fruit)
           }
         })
-        console.log(nameCheckArr)
+        this.displayedFruits = nameCheckArr;
       }
-      // -------------------------------------------------------------------
     }
   },
   mounted(){
@@ -130,7 +128,7 @@ export default {
       this.fruits = response.data.allFruits;
 
       this.displayedFruits = this.fruits;
-      console.log(this.displayedFruits)
+      // console.log(this.displayedFruits)
     })
     .catch(()=>{
       alert('No results for you.')
